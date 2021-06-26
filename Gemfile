@@ -43,6 +43,14 @@ group :development do
 end
 
 group :test do
+  # RSpec for Rails 5+
+  gem 'rspec-rails', '~> 4.0.1'
+  # Set of matchers and helpers to allow you test your APIs responses like a pro.
+  gem 'rspec-json_expectations'
+  # Factory Bot ♥ Rails
+  gem 'factory_bot_rails'
+  # A library for generating fake data such as names, addresses, and phone numbers.
+  gem 'faker'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
