@@ -1,7 +1,11 @@
 import React from 'react'
 
+import Home from '@/pages/home'
+
+import '@/styles/global.scss'
+
 export default function App() {
     return (
-        <div>Hello World!</div>
+        <Home />
     )
 }
