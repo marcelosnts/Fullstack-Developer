@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 
 import Home from '@/pages/home'
 import Signup from '@/pages/signup'
+import Login from '@/pages/login'
 
 import '@/styles/global.scss'
 
@@ -36,6 +37,7 @@ export default function App() {
             <MainContext.Provider value={{currentUser, updateUser}}>
                 <Route path="/" exact component={Home} />
                 <Route path="/sign-up" component={Signup} />
+                <Route path="/login" component={Login} />
             </MainContext.Provider>
         </BrowserRouter>
     )

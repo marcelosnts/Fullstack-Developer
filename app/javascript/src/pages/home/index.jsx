@@ -13,7 +13,9 @@ export default function Home(){
                 <span>Welcome to the test application!</span>
                 <span>You might choose between</span>
                 <div className="sign-in">
-                    <Button color="primary">Login</Button>
+                    <Button color="primary">
+                        <Link to="/login">Login</Link>
+                    </Button>
                 </div>
                 <span>or</span>
                 <div className="sign-up">
