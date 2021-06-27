@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Home from '@/pages/home'
 import Signup from '@/pages/signup'
 import Login from '@/pages/login'
+import Profile from '@/pages/profile'
 
 import '@/styles/global.scss'
 
@@ -18,6 +19,7 @@ export default function App() {
         admin: false,
         created_at: ''
     })
+    const [currentPosition, setCurrentPosition] = useState('/')
 
     const updateUser = useCallback((user) => {
         const {id, full_name, email, avatar_image, admin, created_at} = user
@@ -34,10 +36,11 @@ export default function App() {
 
     return (
         <BrowserRouter>
-            <MainContext.Provider value={{currentUser, updateUser}}>
+            <MainContext.Provider value={{currentUser, updateUser, setCurrentPosition}}>
                 <Route path="/" exact component={Home} />
                 <Route path="/sign-up" component={Signup} />
                 <Route path="/login" component={Login} />
+                <Route path="/profile" component={Profile} />
             </MainContext.Provider>
         </BrowserRouter>
     )
