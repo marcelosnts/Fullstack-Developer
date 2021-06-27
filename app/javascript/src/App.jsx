@@ -1,5 +1,7 @@
 import React, { createContext, useCallback, useState } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
+
+import Route from '@/routes/Route'
 
 import Home from '@/pages/home'
 import Signup from '@/pages/signup'
@@ -36,11 +38,11 @@ export default function App() {
 
     return (
         <BrowserRouter>
-            <MainContext.Provider value={{currentUser, updateUser, setCurrentPosition}}>
+            <MainContext.Provider value={{currentUser, updateUser, currentPosition, setCurrentPosition}}>
                 <Route path="/" exact component={Home} />
                 <Route path="/sign-up" component={Signup} />
                 <Route path="/login" component={Login} />
-                <Route path="/profile" component={Profile} />
+                <Route path="/profile" isPrivate component={Profile} />
             </MainContext.Provider>
         </BrowserRouter>
     )
