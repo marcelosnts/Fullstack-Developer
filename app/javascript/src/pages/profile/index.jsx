@@ -46,7 +46,7 @@ export default () => {
   }, [currentUser]);
 
   const editLink = useMemo(() => {
-    return `/edit/${currentUser.id}`;
+    return `/users/edit/${currentUser.id}`;
   }, [currentUser]);
 
   useEffect(() => {
