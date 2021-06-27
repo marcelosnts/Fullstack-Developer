@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function UserForm({apiLink}){
+export default function UserForm({apiLink, method}){
     const history = useHistory();
     const { updateUser } = useContext(MainContext)
     const classes = useStyles();
@@ -47,17 +47,23 @@ export default function UserForm({apiLink}){
             admin
         } = event.target;
 
-        Api.post(apiLink, {
-            user: {
-                full_name: full_name.value,
-                email: email.value,
-                password: password.value,
-                password_confirmation: password_confirmation.value,
-                avatar_image: avatar_image.value,
-                admin: admin.value
+        Api.request({
+            url: apiLink,
+            method: method,
+            data: {
+                user: {
+                    full_name: full_name.value,
+                    email: email.value,
+                    password: password.value,
+                    password_confirmation: password_confirmation.value,
+                    avatar_image: avatar_image.value,
+                    admin: admin.value
+                }
             }
         }).then(response => {            
             updateUser(response.data)
+        }).catch(error => {
+            console.log(error.response)
         })
     })
 
