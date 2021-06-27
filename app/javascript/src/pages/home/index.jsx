@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { Button } from '@material-ui/core'
 
@@ -16,7 +17,9 @@ export default function Home(){
                 </div>
                 <span>or</span>
                 <div className="sign-up">
-                    <Button color="secondary">Sign Up</Button>
+                    <Button color="secondary">
+                        <Link to="/sign-up">Sign Up</Link>
+                    </Button>
                 </div>
             </main>
         </div>
