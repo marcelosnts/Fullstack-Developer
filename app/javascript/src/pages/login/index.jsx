@@ -53,12 +53,7 @@ export default function Login(){
         }).then(response => {            
             updateUser(response.data)
 
-            if (response.data.admin) {
-                history.push('/dashboard')
-                return
-            }
-
-            history.push('/profile')
+            history.push('/')
         })
     })
 
