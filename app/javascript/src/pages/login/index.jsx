@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Container, TextField, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -34,8 +34,6 @@ export default function Login(){
     function handleBack() {
         history.push('/')
     }
-
-    useEffect(() => { console.log(currentUser) }, [currentUser])
 
     const handleSubmit = useCallback((event) => {
         event.preventDefault()
