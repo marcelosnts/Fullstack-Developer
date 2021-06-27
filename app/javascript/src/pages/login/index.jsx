@@ -54,11 +54,11 @@ export default function Login(){
             updateUser(response.data)
 
             if (response.data.admin) {
-                push('/dashboard')
+                history.push('/dashboard')
                 return
             }
 
-            push('/profile')
+            history.push('/profile')
         })
     })
 
