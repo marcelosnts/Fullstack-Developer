@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Container, TextField, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Api from '@/services/api'
+import { MainContext } from '@/App'
 
 import './styles.scss'
 
@@ -28,12 +29,13 @@ const useStyles = makeStyles({
 export default function Signup(){
     const classes = useStyles();
     const history = useHistory();
+    const { currentUser, updateUser } = useContext(MainContext)
 
     function handleBack() {
         history.push('/')
     }
 
-    function handleSubmit(event) {
+    const handleSubmit = useCallback((event) => {
         event.preventDefault()
         
         const {
@@ -41,7 +43,8 @@ export default function Signup(){
             email,
             password, 
             password_confirmation,
-            avatar_image
+            avatar_image,
+            admin
         } = event.target;
 
         Api.post('/api/users', {
@@ -51,11 +54,12 @@ export default function Signup(){
                 password: password.value,
                 password_confirmation: password_confirmation.value,
                 avatar_image: avatar_image.value,
+                admin: admin.value
             }
-        }).then(response => {
-            console.log(response.data)
+        }).then(response => {            
+            updateUser(response.data)
         })
-    }
+    })
 
     return (
         <div className="container">
@@ -64,6 +68,7 @@ export default function Signup(){
                 <form onSubmit={handleSubmit}>
                     <div className={classes.root}>
                         <div className="mui-text-fields">
+                            <input type="hidden" id="admin" value={false}/>
                             <TextField label="Full Name" id="full_name"/>
                             <TextField label="Email" id="email"/>
                             <TextField label="Password" type="password"id="password"/>
