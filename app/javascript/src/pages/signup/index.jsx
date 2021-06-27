@@ -10,7 +10,7 @@ export default function Signup(){
         <div className="container">
             <Container maxWidth="sm">
                 <h2>There's your Sign Up form:</h2>
-                <UserForm apiLink="/api/users"/>
+                <UserForm apiLink="/api/users" method='post'/>
             </Container>
         </div>
     )
