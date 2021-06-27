@@ -7,6 +7,7 @@ import Home from '@/pages/home'
 import Signup from '@/pages/signup'
 import Login from '@/pages/login'
 import Profile from '@/pages/profile'
+import EditUser from '@/pages/editUser'
 
 import '@/styles/global.scss'
 
@@ -43,6 +44,7 @@ export default function App() {
                 <Route path="/sign-up" component={Signup} />
                 <Route path="/login" component={Login} />
                 <Route path="/profile" isPrivate component={Profile} />
+                <Route path="/users/edit/:id" isPrivate component={EditUser} />
             </MainContext.Provider>
         </BrowserRouter>
     )
