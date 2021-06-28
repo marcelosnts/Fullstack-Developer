@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import Api from '@/services/api'
 import { MainContext } from '@/App'
+import TopBar from '@/components/TopBar'
 
 import './styles.scss'
 
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
 
 export default function EditUser(){
     const history = useHistory();
-    const { currentUser, updateUser } = useContext(MainContext)
+    const { currentUser, updateUser, setCurrentPosition } = useContext(MainContext)
     const classes = useStyles();
     const [inputState, setInputState] = useState({
         full_name: '',
@@ -47,6 +48,10 @@ export default function EditUser(){
             admin: currentUser.admin,
         })
     }, [ currentUser ])
+
+    useEffect(() => {
+        setCurrentPosition('Edit user profile')
+    }, []);
     
     const handleBack = useCallback(() => {
         history.push('/')
@@ -83,56 +88,59 @@ export default function EditUser(){
     })
 
     return (
-        <div className="container">
-            <Container maxWidth="sm">
-                <h2>There's your Sign Up form:</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className={classes.root}>
-                        <div className="mui-text-fields">
-                            <TextField 
-                                label="Full Name" 
-                                id="full_name"
-                                value={inputState.full_name ? inputState.full_name : ''}
-                                onChange={inputChange}
-                            />
-                            <TextField 
-                                label="Email" 
-                                id="email"
-                                value={inputState.email ? inputState.email : ''}
-                                onChange={inputChange}
-                            />                    
-                            <TextField 
-                                label="Avatar url" 
-                                id="avatar_image"
-                                value={inputState.avatar_image ? inputState.avatar_image : ''}
-                                onChange={inputChange}
-                            />
-                            {currentUser.admin
-                                ? (
-                                <Box flexGrow={1} left="57%" position="absolute">
-                                    <FormControlLabel
-                                    control={
-                                        <Switch
-                                        checked={inputState.admin ? inputState.admin : false}
-                                        onChange={switchChange}
-                                        id="admin"
-                                        color="primary"
+        <>
+            <TopBar />
+            <div className="container">
+                <Container maxWidth="sm">
+                    <h2>There's your Sign Up form:</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className={classes.root}>
+                            <div className="mui-text-fields">
+                                <TextField 
+                                    label="Full Name" 
+                                    id="full_name"
+                                    value={inputState.full_name ? inputState.full_name : ''}
+                                    onChange={inputChange}
+                                />
+                                <TextField 
+                                    label="Email" 
+                                    id="email"
+                                    value={inputState.email ? inputState.email : ''}
+                                    onChange={inputChange}
+                                />                    
+                                <TextField 
+                                    label="Avatar url" 
+                                    id="avatar_image"
+                                    value={inputState.avatar_image ? inputState.avatar_image : ''}
+                                    onChange={inputChange}
+                                />
+                                {currentUser.admin
+                                    ? (
+                                    <Box flexGrow={1} left="57%" position="absolute">
+                                        <FormControlLabel
+                                        control={
+                                            <Switch
+                                            checked={inputState.admin ? inputState.admin : false}
+                                            onChange={switchChange}
+                                            id="admin"
+                                            color="primary"
+                                            />
+                                        }
+                                        label="Administrator"
                                         />
-                                    }
-                                    label="Administrator"
-                                    />
-                                </Box>
-                                )
-                                : (<input type="hidden" id="admin" value="false" />)
-                            }
+                                    </Box>
+                                    )
+                                    : (<input type="hidden" id="admin" value="false" />)
+                                }
+                            </div>
                         </div>
-                    </div>
-                    <div className="button-group">
-                        <Button type="submit" variant="contained" color="primary">Submit</Button>
-                        <Button variant="contained" color="secondary" onClick={handleBack}>Back</Button>
-                    </div>
-                </form>
-            </Container>    
-        </div>
+                        <div className="button-group">
+                            <Button type="submit" variant="contained" color="primary">Submit</Button>
+                            <Button variant="contained" color="secondary" onClick={handleBack}>Back</Button>
+                        </div>
+                    </form>
+                </Container>    
+            </div>
+        </>
     );
 }
