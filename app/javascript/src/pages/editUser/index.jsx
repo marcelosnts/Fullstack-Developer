@@ -36,10 +36,6 @@ export default function UserForm({apiLink, method}){
         avatar_image: '',
         admin: false,
     });
-    
-    const handleBack = useCallback(() => {
-        history.push('/')
-    })
 
     useEffect(() => {
         if (!currentUser.email) return
@@ -51,6 +47,14 @@ export default function UserForm({apiLink, method}){
             admin: currentUser.admin,
         })
     }, [ currentUser ])
+    
+    const handleBack = useCallback(() => {
+        history.push('/')
+    })
+
+    const inputChange = useCallback(event => {
+        setInputState({ ...inputState, [event.target.id]: event.target.value });
+    }, [inputState]);
 
     const handleSubmit = useCallback((event) => {
         event.preventDefault()
@@ -62,7 +66,7 @@ export default function UserForm({apiLink, method}){
             admin
         } = event.target;
 
-        Api.put('/api/users', {
+        Api.put(`/api/users/${currentUser.id}`, {
             user: {
                 full_name: full_name.value,
                 email: email.value,
@@ -71,6 +75,8 @@ export default function UserForm({apiLink, method}){
             }
         }).then(response => {            
             updateUser(response.data)
+
+            history.push('/')
         }).catch(error => {
             console.log(error.response)
         })
@@ -87,16 +93,19 @@ export default function UserForm({apiLink, method}){
                                 label="Full Name" 
                                 id="full_name"
                                 value={inputState.full_name ? inputState.full_name : ''}
+                                onChange={inputChange}
                             />
                             <TextField 
                                 label="Email" 
                                 id="email"
                                 value={inputState.email ? inputState.email : ''}
+                                onChange={inputChange}
                             />                    
                             <TextField 
                                 label="Avatar url" 
                                 id="avatar_image"
                                 value={inputState.avatar_image ? inputState.avatar_image : ''}
+                                onChange={inputChange}
                             />
                             {currentUser.admin
                                 ? (
