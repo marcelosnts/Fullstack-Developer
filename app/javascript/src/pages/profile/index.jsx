@@ -19,6 +19,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import { parseISO, format } from 'date-fns'
 
 import { MainContext } from '@/App'
+import TopBar from '@/components/TopBar'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -55,6 +56,7 @@ export default () => {
 
   return (
     <>
+      <TopBar />
       <Container maxWidth="sm" className={classes.root}>
         <Card className={classes.root}>
           <CardHeader
