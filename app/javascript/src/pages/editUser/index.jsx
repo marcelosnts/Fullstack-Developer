@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function UserForm({apiLink, method}){
+export default function EditUser(){
     const history = useHistory();
     const { currentUser, updateUser } = useContext(MainContext)
     const classes = useStyles();
