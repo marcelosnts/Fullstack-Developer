@@ -90,6 +90,7 @@ export default function EditUser(){
     return (
         <>
             <TopBar />
+            { currentUser.admin && <Navbar /> }
             <div className="container">
                 <Container maxWidth="sm">
                     <h2>There's your Sign Up form:</h2>
