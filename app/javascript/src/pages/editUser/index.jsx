@@ -1,11 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Container, TextField, Button, Box, Switch } from '@material-ui/core'
+import { Container, TextField, Button, Box, Switch, FormControlLabel } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Api from '@/services/api'
 import { MainContext } from '@/App'
 import TopBar from '@/components/TopBar'
+import Navbar from '@/components/Navbar'
 
 import './styles.scss'
 
@@ -28,15 +29,15 @@ const useStyles = makeStyles({
 })
 
 export default function EditUser(){
-    const history = useHistory();
+    const history = useHistory()
     const { currentUser, updateUser, setCurrentPosition } = useContext(MainContext)
-    const classes = useStyles();
+    const classes = useStyles()
     const [inputState, setInputState] = useState({
         full_name: '',
         email: '',
         avatar_image: '',
         admin: false,
-    });
+    })
 
     useEffect(() => {
         if (!currentUser.email) return
@@ -51,15 +52,19 @@ export default function EditUser(){
 
     useEffect(() => {
         setCurrentPosition('Edit user profile')
-    }, []);
+    }, [])
     
     const handleBack = useCallback(() => {
         history.push('/')
     })
 
     const inputChange = useCallback(event => {
-        setInputState({ ...inputState, [event.target.id]: event.target.value });
-    }, [inputState]);
+        setInputState({ ...inputState, [event.target.id]: event.target.value })
+    }, [inputState])
+
+    const switchChange = useCallback(event => {
+        setInputState({ ...inputState, [event.target.id]: event.target.checked })
+    }, [inputState])
 
     const handleSubmit = useCallback((event) => {
         event.preventDefault()
@@ -69,7 +74,7 @@ export default function EditUser(){
             email,
             avatar_image,
             admin
-        } = event.target;
+        } = event.target
 
         Api.put(`/api/users/${currentUser.id}`, {
             user: {
@@ -119,15 +124,15 @@ export default function EditUser(){
                                     ? (
                                     <Box flexGrow={1} left="57%" position="absolute">
                                         <FormControlLabel
-                                        control={
-                                            <Switch
-                                            checked={inputState.admin ? inputState.admin : false}
-                                            onChange={switchChange}
-                                            id="admin"
-                                            color="primary"
-                                            />
-                                        }
-                                        label="Administrator"
+                                            control={
+                                                <Switch
+                                                    checked={inputState.admin ? inputState.admin : false}
+                                                    onChange={switchChange}
+                                                    id="admin"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Administrator"
                                         />
                                     </Box>
                                     )
@@ -143,5 +148,5 @@ export default function EditUser(){
                 </Container>    
             </div>
         </>
-    );
+    )
 }
