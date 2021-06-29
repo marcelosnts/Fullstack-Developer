@@ -25,6 +25,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 
 import Api from '@/services/api'
 import { MainContext } from '@/App'
+import { useToast } from '@/hooks/useToast'
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -38,10 +39,17 @@ const Results = ({ className, customData, ...rest }) => {
     const [ limit, setLimit ] = useState(10)
     const { currentUser } = useContext(MainContext)
     const history = useHistory()
+    const { addToast } = useToast()
 
     const handleUserDelete = useCallback((id) => {
         Api.delete(`/api/users/${id}`)
         .then(() => {
+            addToast({
+                type: 'success',
+                title: 'Success!',
+                description: 'User removed successfully!',
+            })
+
             history.push('/')
         })
     }, [])
