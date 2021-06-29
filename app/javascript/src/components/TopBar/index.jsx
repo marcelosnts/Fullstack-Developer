@@ -1,7 +1,7 @@
-import React, { useContext, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
+import React, { useContext, useCallback } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import clsx from 'clsx'
+import PropTypes from 'prop-types'
 import {
     AppBar,
     Box,
@@ -9,30 +9,30 @@ import {
     Toolbar,
     makeStyles,
     Avatar
-} from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import InputIcon from '@material-ui/icons/Input';
-import RoomIcon from '@material-ui/icons/Room';
+} from '@material-ui/core'
+import HomeIcon from '@material-ui/icons/Home'
+import InputIcon from '@material-ui/icons/Input'
+import RoomIcon from '@material-ui/icons/Room'
 
-import { MainContext } from '@/App';
+import { MainContext } from '@/App'
 
 import Api from '@/services/api'
 
 const useStyles = makeStyles(() => ({
-  root: {},
-  avatar: {
-    width: 60,
-    height: 60
-  }
-}));
+    root: {},
+    avatar: {
+        width: 60,
+        height: 60
+    }
+}))
 
 const TopBar = ({
-  className,
-  onMobileNavOpen,
-  ...rest
+    className,
+    onMobileNavOpen,
+    ...rest
 }) => {
-    const classes = useStyles();
-    const { currentUser, updateUser, currentPosition } = useContext(MainContext);
+    const classes = useStyles()
+    const { currentUser, updateUser, currentPosition } = useContext(MainContext)
     const history = useHistory()
 
     const handleLogout = useCallback(async () => {
@@ -64,12 +64,12 @@ const TopBar = ({
                 </IconButton>
             </Toolbar>
         </AppBar>
-  );
-};
+    )
+}
 
 TopBar.propTypes = {
     className: PropTypes.string,
     onMobileNavOpen: PropTypes.func
-};
+}
 
-export default TopBar;
+export default TopBar
