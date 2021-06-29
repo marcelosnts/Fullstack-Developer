@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react';
+import React, { useState, useCallback, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
     Container,
@@ -8,17 +8,17 @@ import {
     Box,
     FormControlLabel,
     Switch
-} from '@material-ui/core';
-import * as Yup from 'yup';
+} from '@material-ui/core'
+import * as Yup from 'yup'
 
-import { useToast } from '@/hooks/useToast';
-import getValidationErrors from '@/utils/getValidationErrors';
+import { useToast } from '@/hooks/useToast'
+import getValidationErrors from '@/utils/getValidationErrors'
 
-import TopBar from '@/components/TopBar';
-import SideBar from '@/components/Navbar';
+import TopBar from '@/components/TopBar'
+import SideBar from '@/components/Navbar'
 
-import { MainContext } from '@/App';
-import Api from '@/services/api';
+import { MainContext } from '@/App'
+import Api from '@/services/api'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -36,10 +36,10 @@ const useStyles = makeStyles(theme => ({
             }
         }
     },
-}));
+}))
 
 export default () => {
-    const classes = useStyles();
+    const classes = useStyles()
     const [formError, setFormError] = useState({
         full_name: '',
         email: '',
@@ -48,16 +48,16 @@ export default () => {
         avatar_url: '',
         admin: false,
     })
-    const {addToast} = useToast();
-    const history = useHistory();
-    const { setCurrentPosition } = useContext(MainContext);
+    const {addToast} = useToast()
+    const history = useHistory()
+    const { setCurrentPosition } = useContext(MainContext)
 
     useEffect(() => {
-        setCurrentPosition('Add a user');
-    }, []);
+        setCurrentPosition('Add a user')
+    }, [])
 
     const handleSubmit = useCallback(async event => {
-        event.preventDefault();
+        event.preventDefault()
 
         const {
             full_name,
@@ -66,7 +66,7 @@ export default () => {
             password_confirmation,
             avatar_image,
             admin,
-        } = event.target;
+        } = event.target
 
         try {
             const schema = Yup.object().shape({
@@ -75,7 +75,7 @@ export default () => {
                 password: Yup.string().required('The password field is required'),
                 password_confirmation: Yup.string().required('You must confirm the password'),
                 avatar_image: Yup.string().required('Insert the user avatar image url'),
-            });
+            })
 
             await schema.validate({
                 full_name: full_name.value,
@@ -83,7 +83,7 @@ export default () => {
                 password: password.value,
                 password_confirmation: password_confirmation.value,
                 avatar_image: avatar_image.value,
-            }, {abortEarly: false});
+            }, {abortEarly: false})
 
             Api.post('/api/users', {
                 user: {
@@ -99,19 +99,19 @@ export default () => {
                     type: 'success',
                     title: 'Success!',
                     description: 'User created successfully!',
-                });
+                })
 
-                history.push('/');
-            });
+                history.push('/')
+            })
         } catch(error) {
             if (error instanceof Yup.ValidationError) {
-                const serializedErrors = getValidationErrors(error);
-                setFormError(serializedErrors);
+                const serializedErrors = getValidationErrors(error)
+                setFormError(serializedErrors)
 
-                return;
+                return
             }
         }
-    }, []);
+    }, [])
 
     return (
         <>
@@ -171,5 +171,5 @@ export default () => {
                 </form>
             </Container>
         </>
-    );
-};
+    )
+}
