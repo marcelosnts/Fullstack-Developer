@@ -2,6 +2,7 @@ import React, { createContext, useCallback, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 import Route from '@/routes/Route'
+import { ToastProvider } from '@/hooks/useToast'
 
 import Home from '@/pages/home'
 import Signup from '@/pages/signup'
@@ -41,12 +42,14 @@ export default function App() {
     return (
         <BrowserRouter>
             <MainContext.Provider value={{currentUser, updateUser, currentPosition, setCurrentPosition}}>
-                <Route path="/" exact component={Home} />
-                <Route path="/sign-up" component={Signup} />
-                <Route path="/login" component={Login} />
-                <Route path="/profile" isPrivate component={Profile} />
-                <Route path="/users/edit/:id" isPrivate component={EditUser} />
-                <Route path="/dashboard" isPrivate isAdmin component={Dashboard} />
+                <ToastProvider>
+                    <Route path="/" exact component={Home} />
+                    <Route path="/sign-up" component={Signup} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/profile" isPrivate component={Profile} />
+                    <Route path="/users/edit/:id" isPrivate component={EditUser} />
+                    <Route path="/dashboard" isPrivate isAdmin component={Dashboard} />
+                </ToastProvider>
             </MainContext.Provider>
         </BrowserRouter>
     )
