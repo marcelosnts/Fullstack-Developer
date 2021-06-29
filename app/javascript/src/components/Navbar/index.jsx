@@ -23,6 +23,11 @@ const items = [
         href: '/dashboard',
         icon: DashboardIcon,
         title: 'Dashboard'
+    },
+    {
+        href: '/users/edit-password',
+        icon: LockIcon,
+        title: 'Edit password'
     }
 ]
 
