@@ -12,6 +12,7 @@ import EditUser from '@/pages/editUser'
 import Dashboard from '@/pages/dashboard'
 import EditPassword from '@/pages/editPassword'
 import CreateUser from '@/pages/createUser'
+import ImportCsv from '@/pages/import'
 
 import '@/styles/global.scss'
 
@@ -49,10 +50,11 @@ export default function App() {
                     <Route path="/sign-up" component={Signup} />
                     <Route path="/login" component={Login} />
                     <Route path="/profile" isPrivate component={Profile} />
-                    <Route path="/users/edit/:id" isPrivate component={EditUser} />
                     <Route path="/dashboard" isPrivate isAdmin component={Dashboard} />
+                    <Route path="/users/edit/:id" isPrivate component={EditUser} />
                     <Route path="/users/edit-password" isPrivate isAdmin component={EditPassword} />
                     <Route path="/users/add" isPrivate isAdmin component={CreateUser} />
+                    <Route path="/users/import" isPrivate isAdmin component={ImportCsv} />
                 </ToastProvider>
             </MainContext.Provider>
         </BrowserRouter>

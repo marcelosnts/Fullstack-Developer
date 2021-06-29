@@ -30,6 +30,11 @@ const items = [
         title: 'Add user'
     },
     {
+        href: '/users/import',
+        icon: BackupIcon,
+        title: 'Import csv'
+    },
+    {
         href: '/users/edit-password',
         icon: LockIcon,
         title: 'Edit password'
