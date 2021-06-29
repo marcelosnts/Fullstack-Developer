@@ -29,20 +29,19 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
     const classes = useStyles()
     const { setCurrentPosition } = useContext(MainContext)
-    const [infoCounters, setInfoCounters] = useState({
+    const [ infoCounters, setInfoCounters ] = useState({
         users: 0,
-        admins: 0
+        admins: 0,
+        notAdmins: 0
     })
 
     useEffect(() => {
+        setCurrentPosition('Dashboard')
+
         Api.get('/api/info')
         .then(response => {
             setInfoCounters(response.data)
         })
-    }, [])
-
-    useEffect(() => {
-        setCurrentPosition('Dashboard')
     }, [])
 
     return (
