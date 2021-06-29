@@ -5,6 +5,7 @@ Rails.application.routes.draw do
         devise_for :users
         resources :users, only: [:index, :show, :create, :update]
         resources :info, only: :index
+        resources :import, only: :create
     end
     
     match '*path', to: 'app#index', via: [:get]
