@@ -73,7 +73,8 @@ export default () => {
                 full_name: Yup.string().required('The full name field is required'),
                 email: Yup.string().required('The email field is required'),
                 password: Yup.string().required('The password field is required'),
-                password_confirmation: Yup.string().required('You must confirm the password'),
+                password_confirmation: Yup.string().required('You must confirm the password')
+                    .oneOf([Yup.ref('password'), null], 'Password confirmation must match'),
                 avatar_image: Yup.string().required('Insert the user avatar image url'),
             })
 
