@@ -37,7 +37,7 @@ const items = [
     {
         href: '/users/edit-password',
         icon: LockIcon,
-        title: 'Edit password'
+        title: 'Change password'
     }
 ]
 

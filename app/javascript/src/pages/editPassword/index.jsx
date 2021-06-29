@@ -49,7 +49,7 @@ export default () => {
     const { addToast } = useToast();
 
     useEffect(() => {
-        setCurrentPosition('Edit password');
+        setCurrentPosition('Change password');
     }, []);
 
     const handleSubmit = useCallback(async event => {
