@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import Api from '@/services/api'
 import { MainContext } from '@/App'
 import getValidationErrors from '@/utils/getValidationErrors'
+import { useToast } from '@/hooks/useToast'
 
 import './styles.scss'
 
@@ -36,6 +37,7 @@ export default function Login(){
         email: '',
         password: ''
     })
+    const { addToast } = useToast()
 
     function handleBack() {
         history.push('/')
@@ -68,7 +70,16 @@ export default function Login(){
             }).then(response => {            
                 updateUser(response.data)
 
-                history.push('/')
+                if (response.data.email) {
+                    history.push('/')
+                    return                
+                }
+
+                addToast({
+                    type: 'error',
+                    title: 'Error!',
+                    description: response.data[0].message
+                })
             })
         } catch(error) {
             if (error instanceof Yup.ValidationError) {
