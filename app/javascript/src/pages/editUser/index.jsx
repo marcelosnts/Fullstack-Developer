@@ -4,6 +4,8 @@ import { Container, TextField, Button, Box, Switch, FormControlLabel } from '@ma
 import { makeStyles } from '@material-ui/core/styles'
 
 import Api from '@/services/api'
+import { useToast } from '@/hooks/useToast'
+
 import { MainContext } from '@/App'
 import TopBar from '@/components/TopBar'
 import Navbar from '@/components/Navbar'
@@ -40,6 +42,7 @@ export default function EditUser(){
     })
     const [user, setUser ] = useState({})
     const { params } = useRouteMatch()
+    const { addToast } = useToast()
 
     useEffect(() => {
         setCurrentPosition('Edit user profile')
@@ -96,6 +99,12 @@ export default function EditUser(){
             const { id } = response.data
 
             if (currentUser.id === id) updateUser(response.data)
+
+            addToast({
+                type: 'success',
+                title: 'Success!',
+                description: 'User update successfully!'
+            })
 
             history.push('/')
         }).catch(error => {
