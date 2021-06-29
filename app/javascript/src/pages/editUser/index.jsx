@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import { Container, TextField, Button, Box, Switch, FormControlLabel } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -38,22 +38,30 @@ export default function EditUser(){
         avatar_image: '',
         admin: false,
     })
-
-    useEffect(() => {
-        if (!currentUser.email) return
-
-        setInputState({
-            full_name: currentUser.full_name,
-            email: currentUser.email,
-            avatar_image: currentUser.avatar_image,
-            admin: currentUser.admin,
-        })
-    }, [ currentUser ])
+    const [user, setUser ] = useState({})
+    const { params } = useRouteMatch()
 
     useEffect(() => {
         setCurrentPosition('Edit user profile')
-    }, [])
-    
+
+        const { id } = params
+
+        if (id) {
+            Api.get(`/api/users/${id}`).then(response => {
+                setUser(response.data);
+            });
+        }
+    }, [ params ])
+
+    useEffect(() => {
+        setInputState({
+            full_name: user.full_name,
+            email: user.email,
+            avatar_image: user.avatar_image,
+            admin: user.admin,
+        });
+    }, [user]);
+
     const handleBack = useCallback(() => {
         history.push('/')
     })
@@ -69,6 +77,7 @@ export default function EditUser(){
     const handleSubmit = useCallback((event) => {
         event.preventDefault()
         
+        const { id } = params
         const {
             full_name,
             email,
@@ -76,15 +85,17 @@ export default function EditUser(){
             admin
         } = event.target
 
-        Api.put(`/api/users/${currentUser.id}`, {
+        Api.put(`/api/users/${id}`, {
             user: {
                 full_name: full_name.value,
                 email: email.value,
                 avatar_image: avatar_image.value,
-                admin: admin.value
+                admin: admin.checked
             }
-        }).then(response => {            
-            updateUser(response.data)
+        }).then(response => {    
+            const { id } = response.data
+
+            if (currentUser.id === id) updateUser(response.data)
 
             history.push('/')
         }).catch(error => {
