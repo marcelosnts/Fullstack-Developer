@@ -20,6 +20,7 @@ import { parseISO, format } from 'date-fns'
 
 import { MainContext } from '@/App'
 import TopBar from '@/components/TopBar'
+import Navbar from '@/components/Navbar'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -57,6 +58,7 @@ export default () => {
   return (
     <>
       <TopBar />
+      { currentUser.admin && <Navbar /> }
       <Container maxWidth="sm" className={classes.root}>
         <Card className={classes.root}>
           <CardHeader
