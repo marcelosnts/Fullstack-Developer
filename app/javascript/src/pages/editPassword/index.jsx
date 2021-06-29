@@ -21,7 +21,7 @@ import SideBar from '@/components/Navbar';
 
 import Api from '@/services/api';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         '& .MuiFormControl-root' : {
             marginBottom: '16px',
