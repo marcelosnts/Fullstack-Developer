@@ -1,10 +1,12 @@
-import React, { useCallback, useContext } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Container, TextField, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import * as Yup from 'yup'
 
 import Api from '@/services/api'
 import { MainContext } from '@/App'
+import getValidationErrors from '@/utils/getValidationErrors'
 
 import './styles.scss'
 
@@ -27,32 +29,55 @@ const useStyles = makeStyles({
 })
 
 export default function Login(){
-    const classes = useStyles();
-    const history = useHistory();
+    const classes = useStyles()
+    const history = useHistory()
     const { currentUser, updateUser } = useContext(MainContext)
+    const [formError, setFormError] = useState({
+        email: '',
+        password: ''
+    })
 
     function handleBack() {
         history.push('/')
     }
 
-    const handleSubmit = useCallback((event) => {
+    const handleSubmit = useCallback(async (event) => {
         event.preventDefault()
         
         const {
             email,
             password
-        } = event.target;
+        } = event.target
 
-        Api.post('/api/users/sign_in', {
-            user: {
+        try {
+            const schema = Yup.object().shape({
+                email: Yup.string().required('The email field is required'),
+                password: Yup.string().required('The password field is required'),
+            })
+
+            await schema.validate({
                 email: email.value,
-                password: password.value
-            }
-        }).then(response => {            
-            updateUser(response.data)
+                password: password.value,
+            }, {abortEarly: false})
 
-            history.push('/')
-        })
+            Api.post('/api/users/sign_in', {
+                user: {
+                    email: email.value,
+                    password: password.value
+                }
+            }).then(response => {            
+                updateUser(response.data)
+
+                history.push('/')
+            })
+        } catch(error) {
+            if (error instanceof Yup.ValidationError) {
+                const serializedErrors = getValidationErrors(error)
+                setFormError(serializedErrors)
+
+                return
+            }
+        }
     })
 
     return (
@@ -62,8 +87,19 @@ export default function Login(){
                 <form onSubmit={handleSubmit}>
                     <div className={classes.root}>
                         <div className="mui-text-fields">
-                            <TextField label="Email" id="email"/>
-                            <TextField label="Password" type="password"id="password"/>
+                            <TextField
+                                label="Email" 
+                                id="email"
+                                error={!!formError.email}
+                                helperText={formError.email}
+                            />
+                            <TextField
+                                label="Password"
+                                type="password"
+                                id="password"
+                                error={!!formError.password}
+                                helperText={formError.password}
+                            />
                         </div>
                     </div>
                     <div className="button-group">
