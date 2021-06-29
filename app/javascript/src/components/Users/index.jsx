@@ -11,12 +11,16 @@ const CustomerListView = () => {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
+        let isMounted = true
+
         Api.get('/api/users')
         .then(response => {
             const {data} = response
             let array = Object.keys(data).map(index => data[Number(index)])
-            setUsers(array)
-        })
+            if (isMounted) setUsers(array)
+        })  
+
+        return () => isMounted = false
     }, [])
 
     return (
