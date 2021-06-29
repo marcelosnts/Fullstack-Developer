@@ -47,10 +47,10 @@ const Results = ({ className, customData, ...rest }) => {
     }, [])
 
     const joinDate = useCallback((created_at) => {
-    if (!created_at) return
+        if (!created_at) return
 
-    const tempDate = parseISO(created_at.toString())
-    return format(tempDate, "'Joined' MM-dd-y 'at' HH:mm")
+        const tempDate = parseISO(created_at.toString())
+        return format(tempDate, "'Joined' MM-dd-y 'at' HH:mm")
     }, [])
 
     return (
@@ -60,93 +60,93 @@ const Results = ({ className, customData, ...rest }) => {
         >
             <PerfectScrollbar>
                 <Box minWidth={1050}>
-                <Table>
-                    <colgroup>
-                    <col width="15%"/>
-                    <col width="15%"/>
-                    <col width="30%"/>
-                    <col width="15%"/>
-                    <col width="5%"/>
-                    <col width="10%"/>
-                    </colgroup>
-                    <TableHead>
-                    <TableRow>
-                        <TableCell>
-                        User
-                        </TableCell>
-                        <TableCell>
-                        Email
-                        </TableCell>
-                        <TableCell>
-                        Avatar location
-                        </TableCell>
-                        <TableCell>
-                        Created at
-                        </TableCell>
-                        <TableCell>
-                        Admin
-                        </TableCell>
-                        <TableCell>
-                        Actions
-                        </TableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {customData.slice(0, limit).map((item) => (
-                        <TableRow
-                        hover
-                        key={item.id}
-                        >
-                        <TableCell>
-                            <Box
-                            alignItems="center"
-                            display="flex"
+                    <Table>
+                        <colgroup>
+                            <col width="15%"/>
+                            <col width="15%"/>
+                            <col width="30%"/>
+                            <col width="15%"/>
+                            <col width="5%"/>
+                            <col width="10%"/>
+                        </colgroup>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>
+                                    User
+                                </TableCell>
+                                <TableCell>
+                                    Email
+                                </TableCell>
+                                <TableCell>
+                                    Avatar location
+                                </TableCell>
+                                <TableCell>
+                                    Created at
+                                </TableCell>
+                                <TableCell>
+                                    Admin
+                                </TableCell>
+                                <TableCell>
+                                    Actions
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {customData.slice(0, limit).map((item) => (
+                            <TableRow
+                                hover
+                                key={item.id}
                             >
-                            <Avatar
-                                className={classes.avatar}
-                                src={item.avatar_image}
-                            >
-                            </Avatar>
-                            <Typography
-                                color="textPrimary"
-                                variant="body1"
-                            >
-                                {item.full_name}
-                            </Typography>
-                            </Box>
-                        </TableCell>
-                        <TableCell>
-                            {item.email}
-                        </TableCell>
-                        <TableCell>
-                            {item.avatar_image}
-                        </TableCell>
-                        <TableCell>
-                            {joinDate(item.created_at)}
-                        </TableCell>
-                        <TableCell>
-                            {
-                            item.admin
-                            ? (<CheckIcon style={{color: 'green'}} />)
-                            : (<ClearIcon style={{color: 'red'}} />)
-                            }
-                        </TableCell>
-                        <TableCell>
-                            <IconButton>
-                            <Link to={`/edit/${item.id}`} style={{color: 'black'}}>
-                                <EditIcon />
-                            </Link>
-                            </IconButton>
-                            {(currentUser.id != item.id) && (
-                            <IconButton onClick={() => {handleUserDelete(item.id)}} style={{color: 'red'}}>
-                                <DeleteIcon />
-                            </IconButton>
-                            )}
-                        </TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
+                                <TableCell>
+                                    <Box
+                                        alignItems="center"
+                                        display="flex"
+                                    >
+                                    <Avatar
+                                        className={classes.avatar}
+                                        src={item.avatar_image}
+                                    >
+                                    </Avatar>
+                                    <Typography
+                                        color="textPrimary"
+                                        variant="body1"
+                                    >
+                                        {item.full_name}
+                                    </Typography>
+                                    </Box>
+                                </TableCell>
+                                <TableCell>
+                                    {item.email}
+                                </TableCell>
+                                <TableCell>
+                                    {item.avatar_image}
+                                </TableCell>
+                                <TableCell>
+                                    {joinDate(item.created_at)}
+                                </TableCell>
+                                <TableCell>
+                                    {
+                                        item.admin
+                                        ? (<CheckIcon style={{color: 'green'}} />)
+                                        : (<ClearIcon style={{color: 'red'}} />)
+                                    }
+                                </TableCell>
+                                <TableCell>
+                                    <IconButton>
+                                        <Link to={`/users/edit/${item.id}`} style={{color: 'black'}}>
+                                            <EditIcon />
+                                        </Link>
+                                    </IconButton>
+                                    {(currentUser.id != item.id) && (
+                                    <IconButton onClick={() => {handleUserDelete(item.id)}} style={{color: 'red'}}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                    )}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
                 </Box>
             </PerfectScrollbar>
         </Card>
