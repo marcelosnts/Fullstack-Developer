@@ -8,6 +8,7 @@ import Signup from '@/pages/signup'
 import Login from '@/pages/login'
 import Profile from '@/pages/profile'
 import EditUser from '@/pages/editUser'
+import Dashboard from '@/pages/dashboard'
 
 import '@/styles/global.scss'
 
@@ -45,6 +46,7 @@ export default function App() {
                 <Route path="/login" component={Login} />
                 <Route path="/profile" isPrivate component={Profile} />
                 <Route path="/users/edit/:id" isPrivate component={EditUser} />
+                <Route path="/dashboard" isPrivate isAdmin component={Dashboard} />
             </MainContext.Provider>
         </BrowserRouter>
     )
