@@ -107,8 +107,6 @@ export default function EditUser(){
             })
 
             history.push('/')
-        }).catch(error => {
-            console.log(error.response)
         })
     })
 
