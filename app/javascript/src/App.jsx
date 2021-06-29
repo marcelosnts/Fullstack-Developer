@@ -11,6 +11,7 @@ import Profile from '@/pages/profile'
 import EditUser from '@/pages/editUser'
 import Dashboard from '@/pages/dashboard'
 import EditPassword from '@/pages/editPassword'
+import CreateUser from '@/pages/createUser'
 
 import '@/styles/global.scss'
 
@@ -51,6 +52,7 @@ export default function App() {
                     <Route path="/users/edit/:id" isPrivate component={EditUser} />
                     <Route path="/dashboard" isPrivate isAdmin component={Dashboard} />
                     <Route path="/users/edit-password" isPrivate isAdmin component={EditPassword} />
+                    <Route path="/users/add" isPrivate isAdmin component={CreateUser} />
                 </ToastProvider>
             </MainContext.Provider>
         </BrowserRouter>
