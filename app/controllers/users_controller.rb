@@ -8,6 +8,12 @@ class UsersController < ApplicationController
         user = User.find(params[:id])
         render json: user, status: 200
     end
+
+    def create
+        user = User.new(user_params)
+        user.save
+        render json: user, status: 200
+    end
     
     def update
         user = User.find(params[:id])
