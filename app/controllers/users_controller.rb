@@ -22,6 +22,10 @@ class UsersController < ApplicationController
         render json: user, status: 200
     end
 
+    def destroy
+        User.delete(params[:id])
+    end
+
     def user_params
         params.require(:user).permit(:full_name, :email, :avatar_image, :admin, :password, :password_confirmation)
     end

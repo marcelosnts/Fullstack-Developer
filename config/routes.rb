@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
     scope :api, defaults: { format: :json } do
         devise_for :users
-        resources :users, only: [:index, :show, :create, :update]
+        resources :users, only: [:index, :show, :create, :update, :destroy]
         resources :info, only: :index
         resources :import, only: :create
     end
