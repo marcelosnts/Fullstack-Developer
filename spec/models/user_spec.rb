@@ -38,6 +38,6 @@ RSpec.describe User, type: :model do
 
     it 'is valid if the user is not admin' do
         user = FactoryBot.create(:user)
-        expect(user.admin).to eq(0)
+        expect(user.admin).to eq(false)
     end
 end
