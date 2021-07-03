@@ -7,7 +7,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: 192.168.99.100
+  host: db
   username: postgres
   password: docker
 
